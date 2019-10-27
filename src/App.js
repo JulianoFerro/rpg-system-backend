@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({
 // Carrega as Rotas e Middlewares
 const IndexRoute = require('./routes/IndexRoute')
 const UserRoute = require('./routes/UserRoute')
-const authService = require('../services/AuthService');
+const authService = require('./services/AuthService');
 
 mongoose.connect(config.connectionString, {
   'useNewUrlParser': true,
