@@ -32,7 +32,7 @@ mongoose.connect(config.connectionString, {
 })
 
 app.use(cors())
-app.use('/',authService, IndexRoute)
+app.use('/', authService.authorize, IndexRoute)
 app.use('/users', UserRoute)
 
 server.listen(process.env.PORT || 3000)
