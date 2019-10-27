@@ -1,8 +1,9 @@
 const Repository = require('../repositories/UserRepository')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const Joi = require('@hapi/joi')
 
-function generateToken (params = []) {
+const generateToken = (params = []) => {
   return jwt.sign(params, global.SALT_KEY, { expiresIn: '1d' })
 }
 
@@ -19,6 +20,12 @@ exports.get = async (req, res, next) => {
 
 exports.post = async (req, res, next) => {
   try {
+    const schema = Joi.object().keys({
+      name: Joi.string().alphanum().min(3).max(30).required(),
+      email: Joi.string().email().required(),
+      password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/)
+    })
+    await Joi.validate(req.body, schema)
     const user = await Repository.create({ ...req.body, user: req.userId })
     user.password = undefined
     res.status(200).send(user)

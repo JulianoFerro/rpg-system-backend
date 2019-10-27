@@ -22,7 +22,6 @@ app.use(bodyParser.urlencoded({
 // Carrega as Rotas e Middlewares
 const IndexRoute = require('./routes/IndexRoute')
 const UserRoute = require('./routes/UserRoute')
-const authService = require('./services/AuthService');
 
 mongoose.connect(config.connectionString, {
   'useNewUrlParser': true,
@@ -32,7 +31,7 @@ mongoose.connect(config.connectionString, {
 })
 
 app.use(cors())
-app.use('/', authService.authorize, IndexRoute)
+app.use('/', IndexRoute)
 app.use('/users', UserRoute)
 
 server.listen(process.env.PORT || 3000)
