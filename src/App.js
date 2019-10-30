@@ -11,7 +11,6 @@ const server = require('http').Server(app)
 const Users = require('./models/User')
 
 // Habilita o CORS
-
 app.use(bodyParser.json({
   limit: '5mb'
 }))
@@ -27,7 +26,7 @@ mongoose.connect(config.connectionString, {
   'useNewUrlParser': true,
   'useCreateIndex': true,
   'useFindAndModify': false,
-  'useUnifiedTopology': true 
+  'useUnifiedTopology': true
 })
 
 app.use(cors())
